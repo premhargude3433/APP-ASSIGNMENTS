@@ -1,43 +1,48 @@
 from abc import ABC, abstractmethod
 
-class payment_strategy(ABC):
-    
-    @abstractmethod
-    def pay(self, amount):
-        pass
-    
+class PaymentStrategy(ABC):
 
-class creditcardpayment(payment_strategy):
-    def pay(self, amount):
-        print("paying with credit card")
-        
-class paypalpayment(payment_strategy):
-    def pay(self,amount):
-        print("paying with paypal")
-class bitcoinpayment(payment_strategy):
-    def pay(self,amount):
-        print("payning using bitcoin")
-        
-class paymentprocessor:
-    def __init__(self,strategy):
-        self.set_strategy(strategy)
-        
-    def set_strategy(self,strategy):
-        
-        self._strategy=strategy
+@abstractmethod
+def pay(self, amount):
+    pass
 
-    def process_payment(self,amount):
-        self._strategy.pay(amount)     
-        
-card=creditcardpayment()
-paypal=paypalpayment()
-bitcoin=bitcoinpayment()
+class CreditCard(PaymentStrategy):
+def pay(self, amount):
+    print("Paying", amount, "using Credit Card")
 
-processor=paymentprocessor(card)
+class PayPal(PaymentStrategy):
+def pay(self, amount):
+    print("Paying", amount, "using PayPal")
+
+class Bitcoin(PaymentStrategy):
+def pay(self, amount):
+    print("Paying", amount, "using Bitcoin")
+
+class PaymentProcessor:
+
+def __init__(self, strategy):
+    self.strategy = strategy
+
+def process_payment(self, amount):
+    self.strategy.pay(amount)
+
+# Create payment methods
+
+card = CreditCard()
+paypal = PayPal()
+bitcoin = Bitcoin()
+
+# Credit Card
+
+processor = PaymentProcessor(card)
 processor.process_payment(100)
 
-processor.set_strategy(paypal)
+# PayPal
+
+processor.strategy = paypal
 processor.process_payment(200)
 
-processor.set_strategy(bitcoin)
+# Bitcoin
+
+processor.strategy = bitcoin
 processor.process_payment(300)
